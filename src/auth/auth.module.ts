@@ -11,7 +11,7 @@ import { JwtStrategy } from './jwt.strategy';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: 'SECRET_KEY_CHANGE_ME', // ⚠️ mettre une vraie clé secrète (env)
+      secret: 'SECRET_KEY_CHANGE_ME', // mettre une vraie clé secrète (env)
       signOptions: { expiresIn: '1h' },
     }),
   ],
