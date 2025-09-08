@@ -26,8 +26,13 @@ export class AnnoncesService {
     });
   }
 
-  update(id: number, updateData: Partial<Annonce>) {
-    return this.annoncesRepository.update(id, updateData);
+  async update(id: number, updateData: Partial<Annonce>) {
+    const annonce = await this.annoncesRepository.findOne({ where: { id } });
+    if (!annonce) {
+      throw new Error('Annonce not found');
+    }
+    Object.assign(annonce, updateData);
+    return this.annoncesRepository.save(annonce);
   }
 
   remove(id: number) {
