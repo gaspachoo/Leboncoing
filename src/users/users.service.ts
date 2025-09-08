@@ -41,8 +41,6 @@ export class UsersService {
     if (!user) {
       throw new Error('User not found');
     }
-    return this.usersRepository.remove(user);
+    return this.usersRepository.remove(user as User);
   }
-
-
 }

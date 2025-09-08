@@ -1,7 +1,7 @@
 import { Controller, Get, Patch, Delete, Param, Body, ParseIntPipe, UseGuards, Request, ForbiddenException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/users/entities/user.entity';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -28,7 +28,7 @@ export class UsersController {
     @Request() req,
   ) {
     if (req.user.userId !== id) {
-      throw new ForbiddenException('You can only update your own profile');
+      throw new ForbiddenException('Vous ne pouvez modifier que votre propre profil');
     }
     return this.usersService.update(id, updateData);
   }

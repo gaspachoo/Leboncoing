@@ -5,13 +5,15 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: 'SECRET_KEY_CHANGE_ME', // mettre une vraie clé secrète (env)
+      secret: process.env.JWT_SECRET || 'SECRET_KEY_CHANGE_ME',
       signOptions: { expiresIn: '1h' },
     }),
   ],
