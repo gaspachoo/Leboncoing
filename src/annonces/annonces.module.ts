@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Annonce } from 'src/annonces/annonce.entity';
+import { Annonce } from 'src/annonces/entities/annonce.entity';
 import { AnnoncesService } from './annonces.service';
 import { AnnoncesController } from './annonces.controller';
 

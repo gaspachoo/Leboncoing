@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
 import { AnnoncesService } from './annonces.service';
-import { Annonce } from 'src/annonces/annonce.entity';
+import { Annonce } from 'src/annonces/entities/annonce.entity';
 
 @Controller('annonces')
 export class AnnoncesController {

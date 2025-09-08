@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
-import { Annonce } from 'src/annonces/annonce.entity';
+import { Annonce } from 'src/annonces/entities/annonce.entity';
 
 @Entity('users')
 export class User {
