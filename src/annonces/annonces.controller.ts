@@ -1,4 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AnnoncesService } from './annonces.service';
 import { Annonce } from 'src/annonces/entities/annonce.entity';
 
@@ -6,7 +8,7 @@ import { Annonce } from 'src/annonces/entities/annonce.entity';
 export class AnnoncesController {
   constructor(private readonly annoncesService: AnnoncesService) {}
 
-  // POST /annonces
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Body() data: Partial<Annonce>) {
     return this.annoncesService.create(data);
