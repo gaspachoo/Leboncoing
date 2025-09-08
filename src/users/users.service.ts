@@ -15,6 +15,10 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+    findAll() {
+      return this.usersRepository.find();
+    }
+
   findOne(id: number) {
     return this.usersRepository.findOne({ where: { id } });
   }
@@ -27,5 +31,13 @@ export class UsersService {
     Object.assign(user, updateData);
     return this.usersRepository.save(user);
   }
+
+    async remove(id: number) {
+      const user = await this.usersRepository.findOne({ where: { id } });
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return this.usersRepository.remove(user);
+    }
 
 }
