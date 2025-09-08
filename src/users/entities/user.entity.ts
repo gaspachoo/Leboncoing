@@ -21,7 +21,7 @@ export class User {
   created_at: Date;
 
   @Column()
-  num_tel: number;
+  num_tel: string;
 
   // Relation avec annonces
   @OneToMany(() => Annonce, (annonce) => annonce.user)
