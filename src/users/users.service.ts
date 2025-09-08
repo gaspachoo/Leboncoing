@@ -36,12 +36,13 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-    async remove(id: number) {
-      const user = await this.usersRepository.findOne({ where: { id } });
-      if (!user) {
-        throw new Error('User not found');
-      }
-      return this.usersRepository.remove(user);
+  async remove(id: number) {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('User not found');
     }
+    return this.usersRepository.remove(user);
+  }
+
 
 }
