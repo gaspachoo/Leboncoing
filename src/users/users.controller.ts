@@ -6,17 +6,11 @@ import { User } from 'src/users/entities/user.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // POST /users
-  @Post()
-  create(@Body() userData: Partial<User>) {
-    return this.usersService.create(userData);
+  // GET /users
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
   }
-
-    // GET /users
-    @Get()
-    findAll() {
-      return this.usersService.findAll();
-    }
 
   // GET /users/:id
   @Get(':id')
@@ -33,9 +27,9 @@ export class UsersController {
     return this.usersService.update(id, updateData);
   }
 
-    // DELETE /users/:id
-    @Delete(':id')
-    remove(@Param('id', ParseIntPipe) id: number) {
-      return this.usersService.remove(id);
-    }
+  // DELETE /users/:id
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.remove(id);
+  }
 }
