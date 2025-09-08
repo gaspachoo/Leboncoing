@@ -1,43 +1,41 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
-import { UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, ParseIntPipe, UseGuards, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AnnoncesService } from './annonces.service';
-import { Annonce } from 'src/annonces/entities/annonce.entity';
+import { Annonce } from './entities/annonce.entity';
 
 @Controller('annonces')
 export class AnnoncesController {
   constructor(private readonly annoncesService: AnnoncesService) {}
 
+  // POST /annonces (protégé)
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body() data: Partial<Annonce>) {
-    return this.annoncesService.create(data);
+  create(@Body() data: Partial<Annonce>, @Request() req) {
+    const userId = req.user.userId; // récupéré depuis le token
+    return this.annoncesService.create(data, userId);
   }
 
-  // GET /annonces
   @Get()
   findAll() {
     return this.annoncesService.findAll();
   }
 
-  // GET /annonces/:id
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.annoncesService.findOne(id);
   }
 
-  // PATCH /annonces/:id
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateData: Partial<Annonce>,
-  ) {
-    return this.annoncesService.update(id, updateData);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateData: Partial<Annonce>, @Request() req) {
+    const userId = req.user.userId;
+    return this.annoncesService.update(id, updateData, userId);
   }
 
-  // DELETE /annonces/:id
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.annoncesService.remove(id);
+  remove(@Param('id', ParseIntPipe) id: number, @Request() req) {
+    const userId = req.user.userId;
+    return this.annoncesService.remove(id, userId);
   }
 }

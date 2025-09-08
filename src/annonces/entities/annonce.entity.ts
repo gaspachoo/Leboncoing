@@ -19,9 +19,6 @@ export class Annonce {
   prix: number;
 
   @Column()
-  vendeur_name: string;
-
-  @Column()
   code_postal: number;
 
   @CreateDateColumn()
